@@ -34,13 +34,13 @@ export default function Stats() {
 
   return (
     <div style={{ padding: '0 20px' }}>
-      <h2 style={{ margin: '0 0 24px', color: '#eee', fontSize: 20 }}>统计</h2>
+      <h2 style={{ margin: '0 0 24px', color: 'var(--text-primary)', fontSize: 20 }}>统计</h2>
 
       <div style={{ display: 'flex', gap: 16, marginBottom: 28 }}>
         <div
           style={{
             flex: 1,
-            background: '#1a1a1a',
+            background: 'var(--bg-secondary)',
             borderRadius: 10,
             padding: '16px 20px',
             textAlign: 'center'
@@ -49,12 +49,12 @@ export default function Stats() {
           <div style={{ fontSize: 32, fontWeight: 700, color: '#e74c3c' }}>
             {totalPomodoros}
           </div>
-          <div style={{ color: '#888', fontSize: 13 }}>总番茄数</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>总番茄数</div>
         </div>
         <div
           style={{
             flex: 1,
-            background: '#1a1a1a',
+            background: 'var(--bg-secondary)',
             borderRadius: 10,
             padding: '16px 20px',
             textAlign: 'center'
@@ -63,24 +63,24 @@ export default function Stats() {
           <div style={{ fontSize: 32, fontWeight: 700, color: '#27ae60' }}>
             {Math.round(todayMinutes)}
           </div>
-          <div style={{ color: '#888', fontSize: 13 }}>今日专注（分钟）</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>今日专注（分钟）</div>
         </div>
       </div>
 
-      <h3 style={{ margin: '0 0 12px', color: '#aaa', fontSize: 15 }}>
+      <h3 style={{ margin: '0 0 12px', color: 'var(--text-muted)', fontSize: 15 }}>
         本周趋势
       </h3>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={last7Days}>
           <XAxis
             dataKey="date"
-            stroke="#555"
+            stroke="var(--text-muted)"
             fontSize={12}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
-            stroke="#555"
+            stroke="var(--text-muted)"
             fontSize={12}
             allowDecimals={false}
             axisLine={false}
@@ -88,10 +88,10 @@ export default function Stats() {
           />
           <Tooltip
             contentStyle={{
-              background: '#333',
+              background: 'var(--bg-secondary)',
               border: 'none',
               borderRadius: 8,
-              color: '#eee'
+              color: 'var(--text-primary)'
             }}
             formatter={(value: number) => [`${value} 个`, '番茄']}
           />
@@ -99,7 +99,7 @@ export default function Stats() {
         </BarChart>
       </ResponsiveContainer>
 
-      <h3 style={{ margin: '20px 0 12px', color: '#aaa', fontSize: 15 }}>
+      <h3 style={{ margin: '20px 0 12px', color: 'var(--text-muted)', fontSize: 15 }}>
         最近记录
       </h3>
       <div style={{ maxHeight: 160, overflowY: 'auto' }}>
@@ -113,9 +113,9 @@ export default function Stats() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 padding: '6px 0',
-                borderBottom: '1px solid #2a2a2a',
+                borderBottom: '1px solid var(--border-color)',
                 fontSize: 13,
-                color: '#999'
+                color: 'var(--text-muted)'
               }}
             >
               <span>{s.date}</span>
@@ -130,7 +130,7 @@ export default function Stats() {
             </div>
           ))}
         {state.sessions.length === 0 && (
-          <p style={{ color: '#555', textAlign: 'center', margin: '20px 0' }}>
+          <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: '20px 0' }}>
             暂无记录
           </p>
         )}

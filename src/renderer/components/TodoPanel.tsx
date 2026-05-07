@@ -18,7 +18,7 @@ export default function TodoPanel() {
 
   return (
     <div style={{ padding: '0 8px' }}>
-      <h3 style={{ margin: '0 0 12px', color: '#ccc', fontSize: 16 }}>待办清单</h3>
+      <h3 style={{ margin: '0 0 12px', color: 'var(--text-secondary)', fontSize: 16 }}>待办清单</h3>
 
       <div style={{ display: 'flex', gap: 4, marginBottom: 12 }}>
         <input
@@ -30,9 +30,9 @@ export default function TodoPanel() {
             flex: 1,
             padding: '8px 12px',
             borderRadius: 6,
-            border: '1px solid #444',
-            background: '#1a1a1a',
-            color: '#eee',
+            border: '1px solid var(--border-color)',
+            background: 'var(--bg-tertiary)',
+            color: 'var(--text-primary)',
             fontSize: 14,
             outline: 'none'
           }}
@@ -63,7 +63,7 @@ export default function TodoPanel() {
               gap: 8,
               padding: '8px 10px',
               borderRadius: 6,
-              background: '#1a1a1a',
+              background: 'var(--bg-secondary)',
               opacity: todo.completed ? 0.5 : 1
             }}
           >
@@ -76,20 +76,20 @@ export default function TodoPanel() {
             <span
               style={{
                 flex: 1,
-                color: '#ddd',
+                color: 'var(--text-primary)',
                 fontSize: 14,
                 textDecoration: todo.completed ? 'line-through' : 'none'
               }}
             >
               {todo.text}
             </span>
-            <span style={{ color: '#888', fontSize: 12 }}>🍅 {todo.pomodoroCount}</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>🍅 {todo.pomodoroCount}</span>
             <button
               onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#666',
+                color: 'var(--text-muted)',
                 cursor: 'pointer',
                 fontSize: 16,
                 padding: 0
@@ -100,7 +100,7 @@ export default function TodoPanel() {
           </div>
         ))}
         {state.todos.length === 0 && (
-          <p style={{ color: '#555', fontSize: 13, textAlign: 'center', margin: '20px 0' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, textAlign: 'center', margin: '20px 0' }}>
             还没有待办事项
           </p>
         )}

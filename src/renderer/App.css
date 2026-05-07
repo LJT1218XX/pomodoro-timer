@@ -22,6 +22,7 @@
   --scrollbar-thumb: #444;
   --scrollbar-thumb-hover: #555;
   --modal-overlay: rgba(0, 0, 0, 0.6);
+  --btn-secondary: #555;
 }
 
 /* 浅色 */
@@ -40,6 +41,7 @@
   --scrollbar-thumb: #ccc;
   --scrollbar-thumb-hover: #bbb;
   --modal-overlay: rgba(0, 0, 0, 0.3);
+  --btn-secondary: #aaa;
 }
 
 /* 森林 */
@@ -58,6 +60,7 @@
   --scrollbar-thumb: #4a5e4a;
   --scrollbar-thumb-hover: #5a6e5a;
   --modal-overlay: rgba(0, 0, 0, 0.6);
+  --btn-secondary: #4a5e4a;
 }
 
 body {

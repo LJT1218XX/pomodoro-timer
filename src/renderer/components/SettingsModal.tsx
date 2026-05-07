@@ -38,7 +38,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0,0,0,0.6)',
+        background: 'var(--modal-overlay)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -48,20 +48,20 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#222',
+          background: 'var(--bg-secondary)',
           borderRadius: 12,
           padding: 28,
           width: 340
         }}
       >
-        <h2 style={{ margin: '0 0 20px', color: '#eee', fontSize: 18 }}>设置</h2>
+        <h2 style={{ margin: '0 0 20px', color: 'var(--text-primary)', fontSize: 18 }}>设置</h2>
 
         {fields.map(({ key, label }) => (
           <div key={key} style={{ marginBottom: 14 }}>
             <label
               style={{
                 display: 'block',
-                color: '#aaa',
+                color: 'var(--text-muted)',
                 fontSize: 13,
                 marginBottom: 4
               }}
@@ -80,9 +80,9 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
                 width: '100%',
                 padding: '8px 12px',
                 borderRadius: 6,
-                border: '1px solid #444',
-                background: '#1a1a1a',
-                color: '#eee',
+                border: '1px solid var(--border-color)',
+                background: 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
                 fontSize: 14,
                 boxSizing: 'border-box',
                 outline: 'none'
@@ -96,7 +96,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
           <label
             style={{
               display: 'block',
-              color: '#aaa',
+              color: 'var(--text-muted)',
               fontSize: 13,
               marginBottom: 8
             }}
@@ -116,10 +116,10 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
                   borderRadius: 6,
                   border:
                     form.theme === value
-                      ? '2px solid var(--accent-focus, #e74c3c)'
+                      ? '2px solid var(--accent-focus)'
                       : '2px solid transparent',
-                  background: 'var(--bg-secondary, #1a1a1a)',
-                  color: 'var(--text-primary, #eee)',
+                  background: 'var(--bg-tertiary)',
+                  color: 'var(--text-primary)',
                   cursor: 'pointer',
                   fontSize: 13,
                 }}
@@ -156,10 +156,10 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
               padding: '8px 20px',
               borderRadius: 6,
               border: 'none',
-              color: '#fff',
+              color: 'var(--text-primary)',
               fontSize: 14,
               cursor: 'pointer',
-              background: '#444'
+              background: 'var(--bg-hover)'
             }}
           >
             取消

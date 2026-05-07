@@ -49,7 +49,7 @@ export default function Timer() {
                   ? `2px solid ${modeColors[mode]}`
                   : '2px solid transparent',
               background: timer.mode === mode ? modeColors[mode] : 'transparent',
-              color: timer.mode === mode ? '#fff' : '#888',
+              color: timer.mode === mode ? '#fff' : 'var(--text-muted)',
               cursor: 'pointer',
               fontSize: 14,
               transition: 'all 0.2s'
@@ -70,7 +70,7 @@ export default function Timer() {
             transform: 'translate(-50%, -50%)',
             fontSize: 48,
             fontWeight: 700,
-            color: '#eee',
+            color: 'var(--text-primary)',
             fontVariantNumeric: 'tabular-nums'
           }}
         >
@@ -104,7 +104,7 @@ export default function Timer() {
             color: '#fff',
             fontSize: 16,
             cursor: 'pointer',
-            background: '#555',
+            background: 'var(--btn-secondary)',
             transition: 'all 0.2s'
           }}
         >
@@ -112,7 +112,7 @@ export default function Timer() {
         </button>
       </div>
 
-      <p style={{ marginTop: 16, color: '#888', fontSize: 14 }}>
+      <p style={{ marginTop: 16, color: 'var(--text-muted)', fontSize: 14 }}>
         今日已完成{' '}
         {state.sessions.filter(
           s =>

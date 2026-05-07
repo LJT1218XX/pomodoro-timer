@@ -1,5 +1,6 @@
 export type TimerMode = 'focus' | 'break' | 'longBreak';
 export type TimerStatus = 'stopped' | 'running' | 'paused';
+export type ThemeMode = 'dark' | 'light' | 'forest' | 'system';
 
 export interface PomodoroSession {
   id: string;
@@ -19,10 +20,11 @@ export interface Todo {
 }
 
 export interface Settings {
-  focusDuration: number;
-  breakDuration: number;
-  longBreakDuration: number;
-  longBreakInterval: number;
+  focusDuration: number
+  breakDuration: number
+  longBreakDuration: number
+  longBreakInterval: number
+  theme: ThemeMode
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -30,7 +32,8 @@ export const DEFAULT_SETTINGS: Settings = {
   breakDuration: 5,
   longBreakDuration: 15,
   longBreakInterval: 4,
-};
+  theme: 'dark',
+}
 
 export interface TimerState {
   mode: TimerMode;

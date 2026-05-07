@@ -18,6 +18,13 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
     onClose()
   }
 
+  const themeOptions = [
+    { value: 'dark' as const, label: '深色', color: '#121212' },
+    { value: 'light' as const, label: '浅色', color: '#f5f5f5' },
+    { value: 'forest' as const, label: '森林', color: '#1a2e1a' },
+    { value: 'system' as const, label: '跟随系统', color: '' },
+  ]
+
   const fields = [
     { key: 'focusDuration' as const, label: '专注时长（分钟）' },
     { key: 'breakDuration' as const, label: '短休息时长（分钟）' },
@@ -83,6 +90,57 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
             />
           </div>
         ))}
+
+        {/* 主题选择 */}
+        <div style={{ marginBottom: 14 }}>
+          <label
+            style={{
+              display: 'block',
+              color: '#aaa',
+              fontSize: 13,
+              marginBottom: 8
+            }}
+          >
+            主题
+          </label>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {themeOptions.map(({ value, label, color }) => (
+              <button
+                key={value}
+                onClick={() => setForm({ ...form, theme: value })}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '6px 12px',
+                  borderRadius: 6,
+                  border:
+                    form.theme === value
+                      ? '2px solid var(--accent-focus, #e74c3c)'
+                      : '2px solid transparent',
+                  background: 'var(--bg-secondary, #1a1a1a)',
+                  color: 'var(--text-primary, #eee)',
+                  cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                {color && (
+                  <span
+                    style={{
+                      width: 14,
+                      height: 14,
+                      borderRadius: '50%',
+                      background: color,
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      display: 'inline-block',
+                    }}
+                  />
+                )}
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div
           style={{

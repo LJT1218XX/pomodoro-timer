@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0.2" y1="0.1" x2="0.8" y2="0.9">
+      <stop offset="0%" stop-color="#e8855a"/>
+      <stop offset="40%" stop-color="#d46a3e"/>
+      <stop offset="80%" stop-color="#c05a32"/>
+      <stop offset="100%" stop-color="#a84a28"/>
+    </linearGradient>
+    <linearGradient id="highlight" x1="0.3" y1="0.2" x2="0.6" y2="0.5">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a8a3a"/>
+      <stop offset="100%" stop-color="#3a6e2a"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a9a4a"/>
+      <stop offset="100%" stop-color="#4a8a3a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="512" cy="780" rx="220" ry="30" fill="rgba(0,0,0,0.08)"/>
+
+  <!-- Main body -->
+  <path d="M512 140
+    C 380 140, 200 260, 200 480
+    C 200 660, 340 760, 512 760
+    C 684 760, 824 660, 824 480
+    C 824 260, 644 140, 512 140 Z"
+    fill="url(#bodyGrad)"/>
+
+  <!-- Top indent (tomato dimple) -->
+  <ellipse cx="512" cy="165" rx="50" ry="12" fill="#a84a28" opacity="0.4"/>
+
+  <!-- Highlight/shine -->
+  <ellipse cx="440" cy="330" rx="100" ry="140" fill="url(#highlight)"
+    transform="rotate(-15 440 330)"/>
+
+  <!-- Small secondary highlight -->
+  <ellipse cx="420" cy="310" rx="40" ry="60" fill="rgba(255,255,255,0.08)"
+    transform="rotate(-15 420 310)"/>
+
+  <!-- Stem -->
+  <rect x="504" y="130" width="16" height="45" rx="6" fill="url(#stemGrad)"/>
+
+  <!-- Star-shaped calyx (sepals) -->
+  <path d="M 512 158
+    L 470 148 Q 460 145 465 140 L 495 152
+    L 480 130 Q 478 122 486 126 L 508 148
+    L 512 120 Q 512 112 516 120 L 520 148
+    L 542 126 Q 550 122 548 130 L 533 152
+    L 563 140 Q 568 145 558 148 L 512 158 Z"
+    fill="url(#leafGrad)" opacity="0.9"/>
+</svg>

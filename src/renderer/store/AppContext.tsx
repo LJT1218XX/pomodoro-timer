@@ -152,6 +152,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
+  // 主题切换
+  useEffect(() => {
+    const theme = state.settings.theme
+    if (theme === 'system') {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const apply = () => {
+        document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light')
+      }
+      apply()
+      mq.addEventListener('change', apply)
+      return () => mq.removeEventListener('change', apply)
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+  }, [state.settings.theme])
+
   // 加载持久化数据
   useEffect(() => {
     ;(async () => {

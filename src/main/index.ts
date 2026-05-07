@@ -1,9 +1,27 @@
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, shell, ipcMain, Notification } from 'electron'
 import { join } from 'path'
+import { is } from '@electron-toolkit/utils'
+import Store from 'electron-store'
+
+const store = new Store({
+  schema: {
+    sessions: { type: 'array', default: [] },
+    todos: { type: 'array', default: [] },
+    settings: {
+      type: 'object',
+      default: {
+        focusDuration: 25,
+        breakDuration: 5,
+        longBreakDuration: 15,
+        longBreakInterval: 4
+      }
+    }
+  }
+})
 
 let mainWindow: BrowserWindow | null = null
 
-function createWindow() {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -11,9 +29,9 @@ function createWindow() {
     minHeight: 500,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
+      sandbox: false
     },
-    show: false,
+    show: false
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -25,12 +43,27 @@ function createWindow() {
     return { action: 'deny' }
   })
 
-  if (process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
+  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
+
+// IPC handlers
+ipcMain.handle('store:get', (_event, key: string) => {
+  return store.get(key)
+})
+
+ipcMain.handle('store:set', (_event, key: string, value: unknown) => {
+  store.set(key, value)
+})
+
+ipcMain.handle('notification:show', (_event, title: string, body: string) => {
+  if (Notification.isSupported()) {
+    new Notification({ title, body }).show()
+  }
+})
 
 app.whenReady().then(() => {
   createWindow()
@@ -41,5 +74,7 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 })

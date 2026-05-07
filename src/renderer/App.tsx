@@ -3,6 +3,7 @@ import './App.css'
 import Timer from './components/Timer'
 import TodoPanel from './components/TodoPanel'
 import Stats from './components/Stats'
+import TitleBar from './components/TitleBar'
 import SettingsModal from './components/SettingsModal'
 import { AppProvider } from './store/AppContext'
 
@@ -12,6 +13,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      <TitleBar />
       <header className="header">
         <div className="tabs">
           <button

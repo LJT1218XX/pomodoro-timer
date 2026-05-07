@@ -17,10 +17,20 @@ export default function TodoPanel() {
   }
 
   return (
-    <div style={{ padding: '0 8px' }}>
-      <h3 style={{ margin: '0 0 12px', color: 'var(--text-secondary)', fontSize: 16 }}>待办清单</h3>
+    <div>
+      <h3
+        style={{
+          margin: '0 0 16px',
+          color: 'var(--text-secondary)',
+          fontSize: 12,
+          letterSpacing: '1.5px',
+          textTransform: 'uppercase'
+        }}
+      >
+        待办清单
+      </h3>
 
-      <div style={{ display: 'flex', gap: 4, marginBottom: 12 }}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
         <input
           value={input}
           onChange={e => setInput(e.target.value)}
@@ -28,25 +38,28 @@ export default function TodoPanel() {
           placeholder="添加待办..."
           style={{
             flex: 1,
-            padding: '8px 12px',
-            borderRadius: 6,
+            padding: '10px 14px',
+            borderRadius: 8,
             border: '1px solid var(--border-color)',
-            background: 'var(--bg-tertiary)',
+            background: 'var(--bg-primary)',
             color: 'var(--text-primary)',
-            fontSize: 14,
-            outline: 'none'
+            fontSize: 13,
+            outline: 'none',
+            transition: 'border-color 0.2s'
           }}
         />
         <button
           onClick={handleAdd}
           style={{
-            padding: '8px 14px',
-            borderRadius: 6,
+            padding: '10px 16px',
+            borderRadius: 8,
             border: 'none',
-            background: '#e74c3c',
+            background: 'var(--accent-focus)',
             color: '#fff',
             cursor: 'pointer',
-            fontSize: 18
+            fontSize: 16,
+            fontWeight: 600,
+            transition: 'opacity 0.2s'
           }}
         >
           +
@@ -60,30 +73,36 @@ export default function TodoPanel() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
-              padding: '8px 10px',
-              borderRadius: 6,
-              background: 'var(--bg-secondary)',
-              opacity: todo.completed ? 0.5 : 1
+              gap: 10,
+              padding: '10px 12px',
+              borderRadius: 8,
+              background: 'var(--bg-primary)',
+              opacity: todo.completed ? 0.4 : 1,
+              transition: 'opacity 0.2s'
             }}
           >
             <input
               type="checkbox"
               checked={todo.completed}
               onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-              style={{ cursor: 'pointer', accentColor: '#e74c3c' }}
+              style={{
+                cursor: 'pointer',
+                accentColor: 'var(--accent-focus)',
+                width: 16,
+                height: 16
+              }}
             />
             <span
               style={{
                 flex: 1,
                 color: 'var(--text-primary)',
-                fontSize: 14,
+                fontSize: 13,
                 textDecoration: todo.completed ? 'line-through' : 'none'
               }}
             >
               {todo.text}
             </span>
-            <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>🍅 {todo.pomodoroCount}</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>🍅 {todo.pomodoroCount}</span>
             <button
               onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
               style={{
@@ -91,8 +110,10 @@ export default function TodoPanel() {
                 border: 'none',
                 color: 'var(--text-muted)',
                 cursor: 'pointer',
-                fontSize: 16,
-                padding: 0
+                fontSize: 15,
+                padding: 0,
+                opacity: 0.5,
+                transition: 'opacity 0.2s'
               }}
             >
               ×
@@ -100,7 +121,15 @@ export default function TodoPanel() {
           </div>
         ))}
         {state.todos.length === 0 && (
-          <p style={{ color: 'var(--text-muted)', fontSize: 13, textAlign: 'center', margin: '20px 0' }}>
+          <p
+            style={{
+              color: 'var(--text-muted)',
+              fontSize: 12,
+              textAlign: 'center',
+              margin: '28px 0',
+              lineHeight: 1.6
+            }}
+          >
             还没有待办事项
           </p>
         )}

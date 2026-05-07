@@ -10,9 +10,9 @@ const modeLabels: Record<TimerMode, string> = {
 }
 
 const modeColors: Record<TimerMode, string> = {
-  focus: '#e74c3c',
-  break: '#27ae60',
-  longBreak: '#2980b9'
+  focus: '#d46a3e',
+  break: '#4a9e6a',
+  longBreak: '#4a8fbf'
 }
 
 export default function Timer() {
@@ -24,35 +24,38 @@ export default function Timer() {
   const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
   const progress = timer.totalDuration > 0 ? 1 - timer.timeLeft / timer.totalDuration : 0
 
-  const handleStart = () => dispatch({ type: 'START_TIMER' })
-  const handlePause = () => dispatch({ type: 'PAUSE_TIMER' })
-  const handleReset = () => dispatch({ type: 'RESET_TIMER' })
-  const handleModeSwitch = (mode: TimerMode) => dispatch({ type: 'SWITCH_MODE', payload: { mode } })
-
   const isRunning = timer.status === 'running'
   const isStopped = timer.status === 'stopped'
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+      {/* Mode pills */}
       <div
-        style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 24 }}
+        style={{
+          display: 'flex',
+          gap: 4,
+          justifyContent: 'center',
+          marginBottom: 32,
+          background: 'var(--bg-secondary)',
+          padding: 3,
+          borderRadius: 10
+        }}
       >
         {(Object.keys(modeLabels) as TimerMode[]).map(mode => (
           <button
             key={mode}
-            onClick={() => handleModeSwitch(mode)}
+            onClick={() => dispatch({ type: 'SWITCH_MODE', payload: { mode } })}
             style={{
-              padding: '6px 16px',
-              borderRadius: 20,
-              border:
-                timer.mode === mode
-                  ? `2px solid ${modeColors[mode]}`
-                  : '2px solid transparent',
+              padding: '7px 20px',
+              borderRadius: 7,
+              border: 'none',
               background: timer.mode === mode ? modeColors[mode] : 'transparent',
               color: timer.mode === mode ? '#fff' : 'var(--text-muted)',
+              fontSize: 13,
+              fontWeight: timer.mode === mode ? 600 : 400,
               cursor: 'pointer',
-              fontSize: 14,
-              transition: 'all 0.2s'
+              transition: 'all 0.25s ease',
+              letterSpacing: '0.3px'
             }}
           >
             {modeLabels[mode]}
@@ -60,6 +63,7 @@ export default function Timer() {
         ))}
       </div>
 
+      {/* Timer */}
       <div style={{ position: 'relative', display: 'inline-block' }}>
         <ProgressRing progress={progress} color={modeColors[timer.mode]} />
         <div
@@ -68,58 +72,102 @@ export default function Timer() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            fontSize: 48,
-            fontWeight: 700,
-            color: 'var(--text-primary)',
-            fontVariantNumeric: 'tabular-nums'
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2
           }}
         >
-          {display}
+          <div
+            style={{
+              fontSize: 56,
+              fontWeight: 300,
+              color: 'var(--text-primary)',
+              fontVariantNumeric: 'tabular-nums',
+              letterSpacing: '4px',
+              lineHeight: 1
+            }}
+          >
+            {display}
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              color: 'var(--text-muted)',
+              letterSpacing: '2px',
+              textTransform: 'uppercase'
+            }}
+          >
+            {timer.status === 'running'
+              ? '进行中'
+              : timer.status === 'paused'
+                ? '已暂停'
+                : '准备就绪'}
+          </div>
         </div>
       </div>
 
-      <div style={{ marginTop: 24, display: 'flex', gap: 12, justifyContent: 'center' }}>
+      {/* Controls */}
+      <div style={{ marginTop: 32, display: 'flex', gap: 10, justifyContent: 'center' }}>
         <button
-          onClick={isRunning ? handlePause : handleStart}
+          onClick={() =>
+            isRunning
+              ? dispatch({ type: 'PAUSE_TIMER' })
+              : dispatch({ type: 'START_TIMER' })
+          }
+          className={isStopped ? 'btn-start' : ''}
           style={{
-            padding: '10px 28px',
-            borderRadius: 8,
+            padding: '12px 36px',
+            borderRadius: 10,
             border: 'none',
             color: '#fff',
-            fontSize: 16,
+            fontSize: 14,
+            fontWeight: 600,
             cursor: 'pointer',
             background: modeColors[timer.mode],
-            transition: 'all 0.2s',
-            opacity: isRunning || isStopped ? 1 : 0.6
+            transition: 'all 0.25s ease',
+            opacity: isRunning || isStopped ? 1 : 0.7,
+            letterSpacing: '0.5px',
+            boxShadow: `0 4px 16px ${modeColors[timer.mode]}33`
           }}
         >
           {isRunning ? '暂停' : isStopped ? '开始' : '继续'}
         </button>
         <button
-          onClick={handleReset}
+          onClick={() => dispatch({ type: 'RESET_TIMER' })}
           style={{
-            padding: '10px 28px',
-            borderRadius: 8,
+            padding: '12px 24px',
+            borderRadius: 10,
             border: 'none',
-            color: '#fff',
-            fontSize: 16,
+            color: 'var(--text-secondary)',
+            fontSize: 14,
             cursor: 'pointer',
             background: 'var(--btn-secondary)',
-            transition: 'all 0.2s'
+            transition: 'all 0.25s ease'
           }}
         >
           重置
         </button>
       </div>
 
-      <p style={{ marginTop: 16, color: 'var(--text-muted)', fontSize: 14 }}>
+      {/* Today count */}
+      <p
+        style={{
+          marginTop: 24,
+          color: 'var(--text-muted)',
+          fontSize: 13,
+          letterSpacing: '0.3px'
+        }}
+      >
         今日已完成{' '}
-        {state.sessions.filter(
-          s =>
-            s.date === new Date().toISOString().slice(0, 10) &&
-            s.type === 'focus' &&
-            s.completed
-        ).length }{' '}
+        <span style={{ color: modeColors.focus, fontWeight: 600 }}>
+          {state.sessions.filter(
+            s =>
+              s.date === new Date().toISOString().slice(0, 10) &&
+              s.type === 'focus' &&
+              s.completed
+          ).length }
+        </span>{' '}
         个番茄
       </p>
     </div>

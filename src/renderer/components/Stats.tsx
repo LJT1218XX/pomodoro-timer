@@ -33,76 +33,112 @@ export default function Stats() {
     .reduce((sum, s) => sum + s.duration, 0)
 
   return (
-    <div style={{ padding: '0 20px' }}>
-      <h2 style={{ margin: '0 0 24px', color: 'var(--text-primary)', fontSize: 20 }}>统计</h2>
+    <div style={{ padding: '0 28px' }}>
+      <h2
+        style={{
+          margin: '0 0 28px',
+          color: 'var(--text-primary)',
+          fontSize: 18,
+          fontWeight: 600,
+          letterSpacing: '0.3px'
+        }}
+      >
+        统计
+      </h2>
 
       <div style={{ display: 'flex', gap: 16, marginBottom: 28 }}>
-        <div
-          style={{
-            flex: 1,
-            background: 'var(--bg-secondary)',
-            borderRadius: 10,
-            padding: '16px 20px',
-            textAlign: 'center'
-          }}
-        >
-          <div style={{ fontSize: 32, fontWeight: 700, color: '#e74c3c' }}>
+        <div className="card" style={{ flex: 1, textAlign: 'center' }}>
+          <div
+            style={{
+              fontSize: 36,
+              fontWeight: 300,
+              color: 'var(--accent-focus)',
+              lineHeight: 1.1
+            }}
+          >
             {totalPomodoros}
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>总番茄数</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 4 }}>
+            总番茄数
+          </div>
         </div>
-        <div
-          style={{
-            flex: 1,
-            background: 'var(--bg-secondary)',
-            borderRadius: 10,
-            padding: '16px 20px',
-            textAlign: 'center'
-          }}
-        >
-          <div style={{ fontSize: 32, fontWeight: 700, color: '#27ae60' }}>
+        <div className="card" style={{ flex: 1, textAlign: 'center' }}>
+          <div
+            style={{
+              fontSize: 36,
+              fontWeight: 300,
+              color: 'var(--accent-break)',
+              lineHeight: 1.1
+            }}
+          >
             {Math.round(todayMinutes)}
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: 13 }}>今日专注（分钟）</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: 12, marginTop: 4 }}>
+            今日专注（分钟）
+          </div>
         </div>
       </div>
 
-      <h3 style={{ margin: '0 0 12px', color: 'var(--text-muted)', fontSize: 15 }}>
+      <h3
+        style={{
+          margin: '0 0 16px',
+          color: 'var(--text-secondary)',
+          fontSize: 13,
+          fontWeight: 500,
+          letterSpacing: '0.3px'
+        }}
+      >
         本周趋势
       </h3>
-      <ResponsiveContainer width="100%" height={200}>
-        <BarChart data={last7Days}>
-          <XAxis
-            dataKey="date"
-            stroke="var(--text-muted)"
-            fontSize={12}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis
-            stroke="var(--text-muted)"
-            fontSize={12}
-            allowDecimals={false}
-            axisLine={false}
-            tickLine={false}
-          />
-          <Tooltip
-            contentStyle={{
-              background: 'var(--bg-secondary)',
-              border: 'none',
-              borderRadius: 8,
-              color: 'var(--text-primary)'
-            }}
-            formatter={(value: number) => [`${value} 个`, '番茄']}
-          />
-          <Bar dataKey="count" fill="#e74c3c" radius={[4, 4, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="card" style={{ padding: '16px 16px 8px' }}>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={last7Days}>
+            <XAxis
+              dataKey="date"
+              stroke="var(--text-muted)"
+              fontSize={11}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              stroke="var(--text-muted)"
+              fontSize={11}
+              allowDecimals={false}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 8,
+                color: 'var(--text-primary)',
+                fontSize: 12
+              }}
+              formatter={(value: number) => [`${value} 个`, '番茄']}
+            />
+            <Bar
+              dataKey="count"
+              fill="var(--accent-focus)"
+              radius={[4, 4, 0, 0]}
+              style={{ filter: 'saturate(0.8)' }}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
-      <h3 style={{ margin: '20px 0 12px', color: 'var(--text-muted)', fontSize: 15 }}>
+      <h3
+        style={{
+          margin: '24px 0 12px',
+          color: 'var(--text-secondary)',
+          fontSize: 13,
+          fontWeight: 500,
+          letterSpacing: '0.3px'
+        }}
+      >
         最近记录
       </h3>
-      <div style={{ maxHeight: 160, overflowY: 'auto' }}>
+      <div style={{ maxHeight: 160, overflowY: 'auto', paddingRight: 4 }}>
         {[...state.sessions]
           .reverse()
           .slice(0, 20)
@@ -112,9 +148,9 @@ export default function Stats() {
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                padding: '6px 0',
+                padding: '7px 0',
                 borderBottom: '1px solid var(--border-color)',
-                fontSize: 13,
+                fontSize: 12,
                 color: 'var(--text-muted)'
               }}
             >
@@ -130,7 +166,14 @@ export default function Stats() {
             </div>
           ))}
         {state.sessions.length === 0 && (
-          <p style={{ color: 'var(--text-muted)', textAlign: 'center', margin: '20px 0' }}>
+          <p
+            style={{
+              color: 'var(--text-muted)',
+              textAlign: 'center',
+              margin: '24px 0',
+              fontSize: 12
+            }}
+          >
             暂无记录
           </p>
         )}

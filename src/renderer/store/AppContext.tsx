@@ -12,6 +12,12 @@ declare global {
       notification: {
         show: (title: string, body: string) => Promise<void>
       }
+      window: {
+        minimize: () => Promise<void>
+        maximize: () => Promise<void>
+        close: () => Promise<void>
+        isMaximized: () => Promise<boolean>
+      }
     }
   }
 }

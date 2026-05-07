@@ -44,3 +44,4 @@ src/
 - **electron-vite 必须显式 externalize electron**: 在 `main` 和 `preload` 的 `build.rollupOptions.external` 中均需添加 `'electron'`，否则 electron 的二进制路径解析代码会被打包导致路径错误
 - **Vite 8 输出 `.mjs`**: `out/` 目录输出为 `.mjs` 文件，main 进程中 preload 路径必须写为 `index.mjs` 而非 `index.js`
 - **国内网络**: Electron 二进制下载需设置 `ELECTRON_MIRROR` 环境变量为 `https://npmmirror.com/mirrors/electron/`，建议写入 `.npmrc` 的 `electron_mirror` 字段
+- **主题系统**: 使用 CSS 变量 + `data-theme` 属性实现，JS 监听 `prefers-color-scheme` 实现跟随系统。主题变量在 `App.css` 的 `[data-theme='dark']` 等选择器中定义

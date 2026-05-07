@@ -45,6 +45,7 @@ export default function Timer() {
           <button
             key={mode}
             onClick={() => dispatch({ type: 'SWITCH_MODE', payload: { mode } })}
+            className={`pill-btn ${timer.mode === mode ? 'pill-active' : ''}`}
             style={{
               padding: '7px 20px',
               borderRadius: 7,
@@ -53,8 +54,8 @@ export default function Timer() {
               color: timer.mode === mode ? '#fff' : 'var(--text-muted)',
               fontSize: 13,
               fontWeight: timer.mode === mode ? 600 : 400,
-              cursor: 'pointer',
-              transition: 'all 0.25s ease',
+              cursor: timer.status === 'stopped' ? 'pointer' : 'default',
+              opacity: timer.status !== 'stopped' && timer.mode !== mode ? 0.4 : 1,
               letterSpacing: '0.3px'
             }}
           >
@@ -115,7 +116,7 @@ export default function Timer() {
               ? dispatch({ type: 'PAUSE_TIMER' })
               : dispatch({ type: 'START_TIMER' })
           }
-          className={isStopped ? 'btn-start' : ''}
+          className={`btn-primary ${isStopped ? 'btn-start' : ''}`}
           style={{
             padding: '12px 36px',
             borderRadius: 10,
@@ -125,7 +126,6 @@ export default function Timer() {
             fontWeight: 600,
             cursor: 'pointer',
             background: modeColors[timer.mode],
-            transition: 'all 0.25s ease',
             opacity: isRunning || isStopped ? 1 : 0.7,
             letterSpacing: '0.5px',
             boxShadow: `0 4px 16px ${modeColors[timer.mode]}33`
@@ -135,6 +135,7 @@ export default function Timer() {
         </button>
         <button
           onClick={() => dispatch({ type: 'RESET_TIMER' })}
+          className="btn-secondary-hover"
           style={{
             padding: '12px 24px',
             borderRadius: 10,
@@ -142,8 +143,7 @@ export default function Timer() {
             color: 'var(--text-secondary)',
             fontSize: 14,
             cursor: 'pointer',
-            background: 'var(--btn-secondary)',
-            transition: 'all 0.25s ease'
+            background: 'var(--btn-secondary)'
           }}
         >
           重置

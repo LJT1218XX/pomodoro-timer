@@ -47,7 +47,7 @@ export default function Stats() {
       </h2>
 
       <div style={{ display: 'flex', gap: 16, marginBottom: 28 }}>
-        <div className="card" style={{ flex: 1, textAlign: 'center' }}>
+        <div className="card card-hover" style={{ flex: 1, textAlign: 'center' }}>
           <div
             style={{
               fontSize: 36,
@@ -62,7 +62,7 @@ export default function Stats() {
             总番茄数
           </div>
         </div>
-        <div className="card" style={{ flex: 1, textAlign: 'center' }}>
+        <div className="card card-hover" style={{ flex: 1, textAlign: 'center' }}>
           <div
             style={{
               fontSize: 36,

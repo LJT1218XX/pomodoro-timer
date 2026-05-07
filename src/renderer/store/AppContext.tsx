@@ -75,6 +75,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
     }
 
     case 'SWITCH_MODE': {
+      if (state.timer.status !== 'stopped') return state
       const totalDuration = getTimeLeftForMode(action.payload.mode, state.settings)
       return {
         ...state,
@@ -120,14 +121,19 @@ function appReducer(state: AppState, action: AppAction): AppState {
 
     case 'UPDATE_SETTINGS': {
       const newSettings = { ...state.settings, ...action.payload }
+      const durationFields = ['focusDuration', 'breakDuration', 'longBreakDuration', 'longBreakInterval']
+      const needsReset = durationFields.some(f => f in action.payload)
       return {
         ...state,
         settings: newSettings,
-        timer: {
-          ...state.timer,
-          timeLeft: getTimeLeftForMode(state.timer.mode, newSettings),
-          totalDuration: getTimeLeftForMode(state.timer.mode, newSettings)
-        }
+        timer: needsReset
+          ? {
+              ...state.timer,
+              status: 'stopped',
+              timeLeft: getTimeLeftForMode(state.timer.mode, newSettings),
+              totalDuration: getTimeLeftForMode(state.timer.mode, newSettings)
+            }
+          : state.timer
       }
     }
 

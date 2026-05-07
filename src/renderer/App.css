@@ -80,16 +80,83 @@
 
 button {
   -webkit-app-region: no-drag;
+  position: relative;
 }
 
-button:active {
-  transform: scale(0.96);
+/* 模式切换按钮 */
+.tab {
+  transition: all 0.2s ease;
 }
 
-.titlebar-btn:active {
-  transform: none;
+.tab:not(.active):hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--accent-focus) 12%, transparent);
 }
 
+/* 计时器模式按钮 */
+.pill-btn {
+  transition: all 0.2s ease !important;
+}
+
+.pill-btn:not(.pill-active):hover {
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent) !important;
+  color: var(--text-primary) !important;
+}
+
+/* 主要操作按钮（开始/暂停）增强反馈 */
+.btn-primary {
+  transition: all 0.25s ease !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: scale(0.94) translateY(0);
+}
+
+/* 次要按钮（重置/取消） */
+.btn-secondary-hover:hover {
+  background: color-mix(in srgb, var(--text-primary) 10%, var(--btn-secondary)) !important;
+}
+
+.btn-secondary-hover:active {
+  transform: scale(0.95);
+}
+
+/* 设置按钮 */
+.settings-btn:hover {
+  background: var(--bg-hover);
+  opacity: 1;
+  transform: rotate(30deg);
+}
+
+.settings-btn:active {
+  transform: rotate(30deg) scale(0.9);
+}
+
+/* 待办项悬停 */
+.todo-item:hover {
+  background: color-mix(in srgb, var(--accent-focus) 6%, var(--bg-primary)) !important;
+}
+
+.todo-item {
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+/* 统计卡片悬停 */
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* 呼吸光效 */
 @keyframes pulse {
   0%, 100% { box-shadow: 0 4px 16px var(--glow-focus); }
   50% { box-shadow: 0 4px 24px var(--glow-focus), 0 0 0 4px var(--glow-focus); }
@@ -101,7 +168,12 @@ button:active {
 
 .btn-start:active {
   animation: none;
-  transform: scale(0.95);
+  transform: scale(0.93);
+}
+
+/* 标题栏按钮 */
+.titlebar-btn:active {
+  transform: none;
 }
 
 body::before {
@@ -276,8 +348,60 @@ body {
   border-left: 1px solid var(--border-color);
   padding: 24px 20px;
   overflow-y: auto;
-  transition: border-color 0.4s ease;
+  transition: width 0.3s ease, padding 0.3s ease, border-color 0.4s ease, opacity 0.3s ease;
   background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.sidebar-hidden {
+  width: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  opacity: 0;
+  border-left: none;
+}
+
+/* 侧栏切换按钮 */
+.sidebar-toggle {
+  background: none;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+
+.sidebar-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.9);
+}
+
+/* 待办数量标 */
+.sidebar-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 4px;
+  border-radius: 7px;
+  background: var(--accent-focus);
+  color: #fff;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .stats-area {
@@ -294,6 +418,17 @@ body {
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-color);
   transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* 隐藏数字输入框默认 spinner */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 /* Scrollbar */

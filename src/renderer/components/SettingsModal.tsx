@@ -170,6 +170,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
         >
           <button
             onClick={onClose}
+            className="btn-secondary-hover"
             style={{
               padding: '9px 20px',
               borderRadius: 8,
@@ -177,8 +178,7 @@ export default function SettingsModal({ open, onClose }: SettingsModalProps) {
               color: 'var(--text-secondary)',
               fontSize: 13,
               cursor: 'pointer',
-              background: 'var(--btn-secondary)',
-              transition: 'background 0.2s'
+              background: 'var(--btn-secondary)'
             }}
           >
             取消
